@@ -1,4 +1,4 @@
-module clickhouse-mover
+module github.com/jpascal/clickhouse-data-clone
 
 go 1.21
 

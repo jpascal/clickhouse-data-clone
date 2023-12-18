@@ -1,12 +1,12 @@
 package main
 
 import (
-	intConfig "clickhouse-mover/internal/config"
 	"context"
 	"database/sql"
 	"errors"
 	"fmt"
 	"github.com/ClickHouse/clickhouse-go/v2"
+	intConfig "github.com/jpascal/clickhouse-data-clone/internal/config"
 	"log"
 	"log/slog"
 	"os"
@@ -15,7 +15,6 @@ import (
 )
 
 func main() {
-
 	config, err := intConfig.Load("config.yaml")
 	if err != nil {
 		panic(err)
