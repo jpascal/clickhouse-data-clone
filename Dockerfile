@@ -3,7 +3,7 @@ FROM golang:1.21 AS backend
 WORKDIR /builder
 COPY ./ /builder
 
-RUN go build -o ./dist/bin/clickhouse-data-clone ./cmd/mover/main.go
+RUN go build -o ./dist/bin/clickhouse-data-clone ./cmd/data-clone/main.go
 
 FROM alpine:3.14.0
 

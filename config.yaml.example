@@ -8,3 +8,8 @@ destination:
   user: <user>
   password: <password>
   host: <host:port>
+#recreate: true
+#truncate: true
+tables:
+  skip: #[TableName]
+  only: #[TableName]

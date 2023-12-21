@@ -7,8 +7,15 @@ type Database struct {
 	Host     string `yaml:"host"`
 }
 
+type Tables struct {
+	Only []string `yaml:"only"`
+	Skip []string `yaml:"skip"`
+}
+
 type Config struct {
 	Source      Database `yaml:"source"`
 	Destination Database `yaml:"destination"`
-	Skip        []string `yaml:"skip"`
+	Truncate    bool     `yaml:"truncate"`
+	Recreate    bool     `yaml:"recreate"`
+	Tables      Tables   `yaml:"tables"`
 }
