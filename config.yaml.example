@@ -10,6 +10,9 @@ destination:
   host: <host:port>
 #recreate: true
 #truncate: true
+trough: source
 tables:
-  skip: #[TableName]
-  only: #[TableName]
+  filters:
+    TestFact: # WHERE condition for records to copy
+  skip: #[TableName,...]
+  only: #[TableName,...]

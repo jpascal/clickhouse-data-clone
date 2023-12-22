@@ -13,6 +13,8 @@ import (
 )
 
 const tableSQL = `SELECT DISTINCT table_name, table_type FROM information_schema.tables where table_catalog = '%s'`
+const insertSQL = `INSERT INTO FUNCTION remote('%s', '%s.%s', '%s', '%s') SELECT * FROM %s.%s`
+const insertWithFilterSQL = `INSERT INTO FUNCTION remote('%s', '%s.%s', '%s', '%s') SELECT * FROM %s.%s WHERE %s`
 
 const (
 	BaseTable = `BASE TABLE`
@@ -94,15 +96,30 @@ func Execute(ctx context.Context) error {
 		if table.Type == BaseTable {
 			startCopyAt := time.Now()
 			tableLogger.Info("start table coping")
-			err = source.Exec(ctx, fmt.Sprintf(`INSERT INTO FUNCTION remote('%s', '%s.%s', '%s', '%s') SELECT * FROM %s.%s`,
-				config.Destination.Host,
-				config.Destination.Name,
-				table.Name,
-				config.Destination.User,
-				config.Destination.Password,
-				config.Source.Name,
-				table.Name,
-			))
+			if filter, ok := config.Tables.Filters[table.Name]; ok {
+				tableLogger.Info("start table coping data by filter")
+				err = source.Exec(ctx, fmt.Sprintf(insertWithFilterSQL,
+					config.Destination.Host,
+					config.Destination.Name,
+					table.Name,
+					config.Destination.User,
+					config.Destination.Password,
+					config.Source.Name,
+					table.Name,
+					filter,
+				))
+			} else {
+				tableLogger.Info("start table coping all data")
+				err = source.Exec(ctx, fmt.Sprintf(insertSQL,
+					config.Destination.Host,
+					config.Destination.Name,
+					table.Name,
+					config.Destination.User,
+					config.Destination.Password,
+					config.Source.Name,
+					table.Name,
+				))
+			}
 			if !errors.Is(err, sql.ErrNoRows) && err != nil {
 				return errors.Wrap(err, "destination.insert")
 			}

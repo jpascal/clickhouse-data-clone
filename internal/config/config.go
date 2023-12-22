@@ -7,9 +7,12 @@ type Database struct {
 	Host     string `yaml:"host"`
 }
 
+type TableFilter string
+
 type Tables struct {
-	Only []string `yaml:"only"`
-	Skip []string `yaml:"skip"`
+	Only    []string               `yaml:"only"`
+	Skip    []string               `yaml:"skip"`
+	Filters map[string]TableFilter `yaml:"filters"`
 }
 
 type Config struct {
