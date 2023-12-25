@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-const tableSQL = `SELECT DISTINCT table_name, table_type FROM information_schema.tables where table_catalog = '%s'`
+const tableSQL = `SELECT DISTINCT table_name, table_type FROM information_schema.tables where table_catalog = '%s' ORDER BY table_name ASC`
 const insertSQL = `INSERT INTO FUNCTION remote('%s', '%s.%s', '%s', '%s') SELECT * FROM %s.%s`
 const insertWithFilterSQL = `INSERT INTO FUNCTION remote('%s', '%s.%s', '%s', '%s') SELECT * FROM %s.%s WHERE %s`
 

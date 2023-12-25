@@ -11,4 +11,4 @@ WORKDIR /app
 
 COPY --from=backend /builder/dist /app/
 
-ENTRYPOINT /app/bin/data-clone
+CMD ["/app/bin/data-clone", "run"]

@@ -8,11 +8,10 @@ destination:
   user: <user>
   password: <password>
   host: <host:port>
-#recreate: true
+recreate: true
 #truncate: true
-trough: source
-tables:
-  filters:
-    TestFact: # WHERE condition for records to copy
-  skip: #[TableName,...]
-  only: #[TableName,...]
+#tables:
+#  filters:
+#    TestFact: # WHERE condition for records to copy
+#  skip: #[TableName,...]
+#  only: #[TableName,...]

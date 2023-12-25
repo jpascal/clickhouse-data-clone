@@ -1,10 +1,16 @@
 package config
 
+import "time"
+
 type Database struct {
 	Name     string `yaml:"name"`
 	User     string `yaml:"user"`
 	Password string `yaml:"password"`
 	Host     string `yaml:"host"`
+	Timeouts struct {
+		Read time.Duration `json:"read"`
+		Dial time.Duration `json:"dial"`
+	} `yaml:"timeouts"`
 }
 
 type TableFilter string
