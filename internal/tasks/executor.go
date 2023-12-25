@@ -121,6 +121,10 @@ func Execute(ctx context.Context) error {
 				))
 			}
 			if !errors.Is(err, sql.ErrNoRows) && err != nil {
+				if config.Tables.Force {
+					tableLogger.Error(errors.Wrap(err, "destination.insert").Error())
+					continue
+				}
 				return errors.Wrap(err, "destination.insert")
 			}
 			tableLogger.With("elapsed", time.Since(startCopyAt)).Info("table copied successful")

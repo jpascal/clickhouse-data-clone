@@ -16,6 +16,7 @@ type Database struct {
 type TableFilter string
 
 type Tables struct {
+	Force   bool                   `yaml:"force"`
 	Only    []string               `yaml:"only"`
 	Skip    []string               `yaml:"skip"`
 	Filters map[string]TableFilter `yaml:"filters"`
